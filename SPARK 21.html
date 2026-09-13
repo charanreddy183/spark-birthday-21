@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, Shehnaz! 🌌</title>
+    <style>
+        * { box-sizing: border-box; }
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            position: relative;
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #333;
+        }
+
+        /* ---------- STARFIELD LAYERS ---------- */
+        .stars, .stars2, .stars3 {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: block;
+            z-index: 0;
+        }
+        .stars { background: transparent; }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle ease-in-out infinite;
+        }
+
+        /* ---------- SHOOTING STARS ---------- */
+        .shooting-star {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: 2px;
+            background: linear-gradient(-45deg, rgba(255,215,130,1), rgba(255,215,130,0));
+            border-radius: 50%;
+            filter: drop-shadow(0 0 6px #f6d365);
+            animation: shoot 4s linear infinite;
+            opacity: 0;
+        }
+        @keyframes shoot {
+            0% { transform: translate(0,0) rotate(215deg); opacity: 1; width: 2px; }
+            5% { opacity: 1; }
+            12% { transform: translate(-450px, 320px) rotate(215deg); opacity: 0; width: 120px;}
+            100% { transform: translate(-450px, 320px) rotate(215deg); opacity: 0; }
+        }
+
+        /* ---------- PLANET / MOON ---------- */
+        .moon {
+            position: absolute;
+            top: 8%;
+            right: 10%;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #fff7d6, #f6d365 60%, #e0ac2b 100%);
+            box-shadow: 0 0 40px 10px rgba(246, 211, 101, 0.45);
+            z-index: 1;
+        }
+        .moon::before, .moon::after {
+            content: '';
+            position: absolute;
+            background: rgba(180, 140, 40, 0.35);
+            border-radius: 50%;
+        }
+        .moon::before { width: 14px; height: 14px; top: 15px; left: 12px; }
+        .moon::after { width: 9px; height: 9px; top: 38px; left: 40px; }
+
+        .planet {
+            position: absolute;
+            bottom: 6%;
+            left: 6%;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #ff9a76, #c9576b 70%);
+            box-shadow: 0 0 25px 6px rgba(201, 87, 107, 0.4);
+            z-index: 1;
+        }
+        .planet::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -25%;
+            width: 150%;
+            height: 10px;
+            background: rgba(255, 220, 180, 0.5);
+            border-radius: 50%;
+            transform: translateY(-50%) rotate(-15deg);
+        }
+
+        /* ---------- FLOATING ROCKET ---------- */
+        .rocket {
+            position: absolute;
+            font-size: 26px;
+            animation: floatRocket 7s ease-in-out infinite;
+            z-index: 1;
+            filter: drop-shadow(0 0 8px rgba(246, 211, 101, 0.6));
+        }
+        @keyframes floatRocket {
+            0%, 100% { transform: translate(0, 0) rotate(-45deg); }
+            50% { transform: translate(15px, -25px) rotate(-45deg); }
+        }
+
+        /* ---------- MAIN CARD ---------- */
+        .container {
+            position: relative;
+            background: rgba(15, 22, 33, 0.75);
+            border: 1px solid rgba(246, 211, 101, 0.25);
+            padding: 42px 36px;
+            border-radius: 22px;
+            box-shadow: 0 0 50px rgba(246, 211, 101, 0.12), 0 10px 30px rgba(0,0,0,0.5);
+            max-width: 90%;
+            width: 520px;
+            z-index: 10;
+            backdrop-filter: blur(12px);
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.75em;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #f6d365;
+            border: 1px solid rgba(246, 211, 101, 0.4);
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            color: #f6d365;
+            font-size: 2.4em;
+            margin: 0 0 10px 0;
+            text-shadow: 0 0 20px rgba(246, 211, 101, 0.4);
+        }
+        .subtitle {
+            color: #a9b8cc;
+            font-size: 0.95em;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+        p.message {
+            font-size: 1.08em;
+            line-height: 1.7;
+            margin-bottom: 24px;
+            color: #e5e9f0;
+        }
+
+        .btn {
+            padding: 13px 32px;
+            font-size: 1.05em;
+            background: linear-gradient(135deg, #f6d365, #fda085);
+            color: #23262e;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(246, 211, 101, 0.35);
+        }
+        .btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(246, 211, 101, 0.55);
+        }
+
+        #secretMessage {
+            display: none;
+            margin-top: 22px;
+            animation: fadeIn 1.2s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .surprise-text {
+            font-size: 1.15em;
+            color: #f6d365;
+            font-style: italic;
+            margin-bottom: 18px;
+            line-height: 1.5;
+        }
+
+        /* ---------- MISSION / COUNTDOWN PANEL ---------- */
+        .intro-timer-text {
+            color: #fda085;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+            letter-spacing: 0.5px;
+        }
+        .counter-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 18px;
+            border-radius: 16px;
+            margin: 10px 0 20px 0;
+            border: 1px solid rgba(246, 211, 101, 0.3);
+        }
+        .timer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+        .timer-unit {
+            background: rgba(246, 211, 101, 0.08);
+            border-radius: 10px;
+            padding: 10px 4px;
+        }
+        .timer-unit .num {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #ffe9a8;
+            display: block;
+        }
+        .timer-unit .label {
+            font-size: 0.65em;
+            color: #a9b8cc;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ---------- CONSTELLATION WISH ROW ---------- */
+        .wishes {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            margin-top: 6px;
+            font-size: 1.4em;
+        }
+        .wishes span {
+            animation: twinkle 2s ease-in-out infinite;
+        }
+        .wishes span:nth-child(2) { animation-delay: 0.3s; }
+        .wishes span:nth-child(3) { animation-delay: 0.6s; }
+        .wishes span:nth-child(4) { animation-delay: 0.9s; }
+        .wishes span:nth-child(5) { animation-delay: 1.2s; }
+
+        .sparkle {
+            position: absolute;
+            font-size: 18px;
+            animation: floatUp 3.2s linear forwards;
+            z-index: 5;
+            pointer-events: none;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas class="stars" id="starCanvas"></canvas>
+    <div class="shooting-star" style="top: 5%; left: 90%; animation-delay: 0s;"></div>
+    <div class="shooting-star" style="top: 20%; left: 70%; animation-delay: 1.8s;"></div>
+    <div class="shooting-star" style="top: 2%; left: 50%; animation-delay: 3.2s;"></div>
+
+    <div class="moon"></div>
+    <div class="planet"></div>
+    <div class="rocket" style="top: 60%; left: 8%;">🚀</div>
+    <div class="rocket" style="top: 20%; left: 15%; animation-delay: 2s; font-size: 18px;">🛰️</div>
+
+    <div class="container">
+        <span class="badge">Mission: Birthday</span>
+        <h1>Happy Birthday, Shehnaz! 🌌</h1>
+        <div class="subtitle">Somewhere among a billion stars, today's the brightest one</div>
+
+        <p class="message">I am so glad our paths crossed. I really enjoy the time we spend together, and getting to know you has been amazing. You're truly special to me.</p>
+
+        <button class="btn" onclick="revealMessage()">🚀 Launch the surprise</button>
+
+        <div id="secretMessage">
+            <div class="surprise-text">
+                Here's to you, your beautiful smile, and all the great moments ahead. Have the happiest 21st birthday! 🎉
+            </div>
+
+            <div class="intro-timer-text">You've been lighting up the galaxy for exactly:</div>
+
+            <div class="counter-box">
+                <div class="timer-grid">
+                    <div class="timer-unit"><span class="num" id="yearsNum">0</span><span class="label">Years</span></div>
+                    <div class="timer-unit"><span class="num" id="daysNum">0</span><span class="label">Days</span></div>
+                    <div class="timer-unit"><span class="num" id="hoursNum">0</span><span class="label">Hours</span></div>
+                    <div class="timer-unit"><span class="num" id="minsNum">0</span><span class="label">Mins</span></div>
+                </div>
+            </div>
+
+            <div class="wishes">
+                <span>⭐</span><span>🌟</span><span>✨</span><span>🌠</span><span>💫</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ---------- Animated starfield on canvas ----------
+        const canvas = document.getElementById('starCanvas');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initStars();
+        }
+
+        function initStars() {
+            stars = [];
+            const count = Math.floor((canvas.width * canvas.height) / 3500);
+            for (let i = 0; i < count; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    r: Math.random() * 1.4 + 0.3,
+                    baseAlpha: Math.random() * 0.6 + 0.3,
+                    speed: Math.random() * 0.4 + 0.05,
+                    twinklePhase: Math.random() * Math.PI * 2
+                });
+            }
+        }
+
+        function drawStars(time) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (const s of stars) {
+                const twinkle = 0.5 + 0.5 * Math.sin(time * 0.001 * s.speed * 3 + s.twinklePhase);
+                const alpha = s.baseAlpha * (0.4 + 0.6 * twinkle);
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 244, 214, ${alpha})`;
+                ctx.fill();
+            }
+            requestAnimationFrame(drawStars);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        requestAnimationFrame(drawStars);
+
+        // ---------- Countdown / age-in-space timer ----------
+        const birthDate = new Date(2005, 8, 13, 0, 0, 0).getTime();
+
+        function updateCounter() {
+            const now = new Date().getTime();
+            const difference = now - birthDate;
+
+            const years = Math.floor(difference / (1000 * 60 * 60 * 24 * 365.25));
+            const days = Math.floor((difference % (1000 * 60 * 60 * 24 * 365.25)) / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+
+            document.getElementById("yearsNum").textContent = years;
+            document.getElementById("daysNum").textContent = days;
+            document.getElementById("hoursNum").textContent = hours;
+            document.getElementById("minsNum").textContent = minutes;
+        }
+
+        setInterval(updateCounter, 1000);
+        updateCounter();
+
+        function revealMessage() {
+            document.getElementById('secretMessage').style.display = 'block';
+            document.querySelector('.btn').style.display = 'none';
+            createSparkles();
+            setInterval(createSparkles, 500);
+        }
+
+        function createSparkles() {
+            const emojis = ['✨', '🌟', '⭐', '🌠', '💫'];
+            for (let i = 0; i < 5; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+                sparkle.classList.add('sparkle');
+                sparkle.style.left = Math.random() * 100 + 'vw';
+                sparkle.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                document.body.appendChild(sparkle);
+
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 4200);
+            }
+        }
+    </script>
+</body>
+</html>
